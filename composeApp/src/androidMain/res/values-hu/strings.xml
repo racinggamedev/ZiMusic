@@ -23,7 +23,6 @@
     <string name="enter_the_playlist_name">Add meg a lejátszási lista nevét</string>
     <string name="playlists">Lejátszási listák</string>
     <string name="favorites">Kedvencek</string>
-    <string name="disliked">Disliked</string>
     <string name="quick_picks">Ajánlatok</string>
     <string name="songs">Dal</string>
     <string name="other_versions">További verziók</string>
@@ -557,7 +556,6 @@
     <string name="position_bottom">Alul</string>
     <string name="added_to_favorites">Hozzáadva a kedvencekhez</string>
     <string name="removed_from_favorites">Eltávolítva a kedvencek közül</string>
-    <string name="added_to_disliked">Added to disliked</string>
     <string name="lang_filipino">Filippínó</string>
     <string name="action_bar_transparent_background">Átlátszó háttér</string>
     <string name="pinfo_type">Információ típusa</string>
@@ -581,7 +579,7 @@
     <string name="info_prevent_play_songs_with_age_limitation">Korhatáros dalok lejátszásának megakadályozása</string>
     <string name="cache_location_private">Privát</string>
     <string name="cache_location_system">Rendszer</string>
-    <string name="info_cannot_rename_a_monthly_or_piped_playlist">Cannot rename a monthly, online, YTM Liked or piped playlist</string>
+    <string name="info_cannot_rename_a_monthly_or_piped_playlist">Cannot rename a monthly or online or piped playlist</string>
     <string name="debug">Hibakeresés</string>
     <string name="enable_log_debug">A hibakeresés naplózásának engedélyezése</string>
     <string name="if_enabled_create_a_log_file_to_highlight_errors">Ha engedélyezve van, létrehoz egy naplófájlt a hibák kiemeléséhez</string>
@@ -706,7 +704,6 @@
     <string name="info_pauses_player_when_volume_zero">Leállítja a lejátszót, ha a hangerő eléri a 0-t, és folytatja, ha a hangerő meghaladja a 0-t</string>
     <string name="quality">Minőség</string>
     <string name="value_must_be_ip_address">Az értéknek IP-címnek kell lennie</string>
-    <string name="value_must_be_hex">Value must be an hex code</string>
     <string name="swipe_up_to_open_the_queue">Csúsztasd felfelé az ujjad a Várólista megnyitásához</string>
     <string name="pinfo_show_icons">Információk megjelenítése ikonokkal</string>
     <string name="format_ms">%1$s ms</string>
@@ -949,12 +946,4 @@
     <string name="use_alternative_dns">Use alternative dns</string>
     <string name="use_dns_over_https_title">Use dns over https</string>
     <string name="also_delete_playback_data">Also delete playback data</string>
-    <string name="rescue_center">Rescue Center</string>
-    <string name="midnightodyssey">Midnight Odyssey</string>
-    <string name="circle">Circle</string>
-    <string name="enter_hex">Enter the 7-digit HEX code</string>
-    <string name="streaming_player_type_default">Default</string>
-    <string name="streaming_player_type_next">Next</string>
-    <string name="streaming_player_type">Streaming player type</string>
-    <string name="streaming_player_type_advanced">Advanced</string>
 </resources>

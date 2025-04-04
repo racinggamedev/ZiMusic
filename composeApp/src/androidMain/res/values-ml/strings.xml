@@ -23,7 +23,6 @@
     <string name="enter_the_playlist_name">പ്ലെലിസ്റ്റ് പേര് നൽകുക</string>
     <string name="playlists">പ്ലേലിസ്റ്റുകൾ</string>
     <string name="favorites">പ്രിയപെട്ടത്</string>
-    <string name="disliked">Disliked</string>
     <string name="quick_picks">ക്വിക് പിക്സ്</string>
     <string name="songs">പാട്ടുകൾ</string>
     <string name="other_versions">മറ്റ് പതിപ്പുകൾ</string>
@@ -557,7 +556,6 @@
     <string name="position_bottom">Bottom</string>
     <string name="added_to_favorites">Added to favorites</string>
     <string name="removed_from_favorites">Removed from favorites</string>
-    <string name="added_to_disliked">Added to disliked</string>
     <string name="lang_filipino">Filipino</string>
     <string name="action_bar_transparent_background">Transparent background</string>
     <string name="pinfo_type">Info type</string>
@@ -581,7 +579,7 @@
     <string name="info_prevent_play_songs_with_age_limitation">Prevent play songs with age limitation</string>
     <string name="cache_location_private">Private</string>
     <string name="cache_location_system">System</string>
-    <string name="info_cannot_rename_a_monthly_or_piped_playlist">Cannot rename a monthly, online, YTM Liked or piped playlist</string>
+    <string name="info_cannot_rename_a_monthly_or_piped_playlist">Cannot rename a monthly or online or piped playlist</string>
     <string name="debug">DEBUG</string>
     <string name="enable_log_debug">Enable log debug</string>
     <string name="if_enabled_create_a_log_file_to_highlight_errors">If enabled, create a log file to highlight errors</string>
@@ -706,7 +704,6 @@
     <string name="info_pauses_player_when_volume_zero">Pauses the player when the volume reaches 0 and resumes when the volume is greater than 0</string>
     <string name="quality">Quality</string>
     <string name="value_must_be_ip_address">Value must be an ip address</string>
-    <string name="value_must_be_hex">Value must be an hex code</string>
     <string name="swipe_up_to_open_the_queue">Swipe up to open the queue</string>
     <string name="pinfo_show_icons">Show info with icons</string>
     <string name="format_ms">%1$s ms</string>
@@ -949,12 +946,4 @@
     <string name="use_alternative_dns">Use alternative dns</string>
     <string name="use_dns_over_https_title">Use dns over https</string>
     <string name="also_delete_playback_data">Also delete playback data</string>
-    <string name="rescue_center">Rescue Center</string>
-    <string name="midnightodyssey">Midnight Odyssey</string>
-    <string name="circle">Circle</string>
-    <string name="enter_hex">Enter the 7-digit HEX code</string>
-    <string name="streaming_player_type_default">Default</string>
-    <string name="streaming_player_type_next">Next</string>
-    <string name="streaming_player_type">Streaming player type</string>
-    <string name="streaming_player_type_advanced">Advanced</string>
 </resources>

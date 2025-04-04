@@ -4,6 +4,5 @@ enum class ValidationType {
     None,
     Text,
     Ip,
-    Url,
-    Hex
+    Url
 }

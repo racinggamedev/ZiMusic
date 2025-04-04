@@ -402,7 +402,7 @@ class PlayerService : InvincibleService(),
         preferences.registerOnSharedPreferenceChangeListener(this)
 
         val preferences = preferences
-        isPersistentQueueEnabled = preferences.getBoolean(persistentQueueKey, true)
+        isPersistentQueueEnabled = preferences.getBoolean(persistentQueueKey, false)
         isInvincibilityEnabled = preferences.getBoolean(isInvincibilityEnabledKey, false)
         isShowingThumbnailInLockscreen =
             preferences.getBoolean(isShowingThumbnailInLockscreenKey, false)
@@ -1725,7 +1725,7 @@ class PlayerService : InvincibleService(),
 
 
     private fun createMediaSourceFactory() = DefaultMediaSourceFactory(
-        createSimpleDataSourceFactory(),
+        createDataSourceFactory(),
         DefaultExtractorsFactory()
     ).setLoadErrorHandlingPolicy(
         object : DefaultLoadErrorHandlingPolicy() {

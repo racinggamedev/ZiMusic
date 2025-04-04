@@ -122,7 +122,6 @@ import it.fast4x.rimusic.utils.addNext
 import it.fast4x.rimusic.utils.addToYtPlaylist
 import it.fast4x.rimusic.utils.asSong
 import it.fast4x.rimusic.utils.backgroundProgressKey
-import it.fast4x.rimusic.utils.currentWindow
 import it.fast4x.rimusic.utils.disableScrollingTextKey
 import it.fast4x.rimusic.utils.discoverKey
 import it.fast4x.rimusic.utils.enqueue
@@ -224,8 +223,6 @@ fun Queue(
             }
         }
     }
-
-    println("QueueModern 1")
 
     val rippleIndication = ripple(bounded = false)
 
@@ -403,7 +400,7 @@ fun Queue(
                         ) ?: false
             }
 
-    println("QueueModern 2")
+
 
     Box(
         modifier = Modifier
@@ -422,9 +419,6 @@ fun Queue(
             if (to.key != binder.player.currentMediaItem?.mediaId)
                 player.moveMediaItem(from.index, to.index)
         }
-
-
-        println("QueueModern 3")
 
     LazyColumn(
         state = lazyListState,
@@ -759,16 +753,8 @@ fun Queue(
         }
     }
 
-    LaunchedEffect(Unit) {
-        if (!lazyListState.isScrollInProgress)
-            lazyListState.animateScrollToItem (
-                windows.indexOf(player.currentWindow),
-                -300
-            )
-    }
-
-//    val backgroundProgress by rememberPreference(backgroundProgressKey, BackgroundProgress.MiniPlayer)
-//    val positionAndDuration by binder.player.positionAndDurationState()
+    val backgroundProgress by rememberPreference(backgroundProgressKey, BackgroundProgress.MiniPlayer)
+    val positionAndDuration by binder.player.positionAndDurationState()
             Box(
                 modifier = Modifier
                     .clickable(onClick = { onDismiss(queueLoopType) })

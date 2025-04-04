@@ -125,7 +125,6 @@ const val navigationBarPositionKey = "navigationBarPosition"
 const val navigationBarTypeKey = "navigationBarType"
 const val pauseBetweenSongsKey = "pauseBetweenSongs"
 const val showFavoritesPlaylistKey = "showFavoritesPlaylist"
-const val showDislikedPlaylistKey = "showDislikedPlaylistKey"
 const val showCachedPlaylistKey = "showCachedPlaylist"
 const val showMyTopPlaylistKey = "showMyTopPlaylist"
 const val showDownloadedPlaylistKey = "showDownloadedPlaylist"
@@ -371,7 +370,6 @@ const val volumeBoostLevelKey = "volumeBoostLevel"
 const val dnsOverHttpsTypeKey = "dnsOverHttpsType"
 const val customDnsOverHttpsServerKey = "customDnsOverHttpsServer"
 const val enablePreCacheKey = "enablePreCache"
-const val streamingPlayerTypeKey = "streamingPlayerType"
 
 
 /*

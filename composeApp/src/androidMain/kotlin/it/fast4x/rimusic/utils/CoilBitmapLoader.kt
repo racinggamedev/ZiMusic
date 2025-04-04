@@ -34,7 +34,7 @@ class CoilBitmapLoader(
         scope.future(Dispatchers.IO) {
             val result = context.imageLoader.execute(
                 ImageRequest.Builder(context)
-                    //.networkCachePolicy(CachePolicy.ENABLED)
+                    .networkCachePolicy(CachePolicy.ENABLED)
                     .data(uri.thumbnail(bitmapSize))
                     .size(bitmapSize)
                     .bitmapConfig(Bitmap.Config.ARGB_8888)

@@ -29,11 +29,10 @@ class AppHeader(
         @Composable
         fun colors(): TopAppBarColors = TopAppBarColors(
             containerColor = colorPalette().background0,
+            titleContentColor = colorPalette().text,
             scrolledContainerColor = colorPalette().background0,
             navigationIconContentColor = colorPalette().background0,
-            titleContentColor = colorPalette().text,
-            actionIconContentColor = colorPalette().text,
-            subtitleContentColor = colorPalette().text
+            actionIconContentColor = colorPalette().text
         )
     }
 

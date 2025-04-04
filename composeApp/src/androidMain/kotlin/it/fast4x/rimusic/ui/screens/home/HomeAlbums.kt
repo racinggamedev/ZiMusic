@@ -252,7 +252,7 @@ fun HomeAlbums(
             Column( Modifier.fillMaxSize() ) {
                 // Sticky tab's title
                 TabHeader(R.string.albums) {
-                    HeaderInfo(itemsOnDisplay.size.toString(), R.drawable.album)
+                    HeaderInfo(items.size.toString(), R.drawable.album)
                 }
 
                 // Sticky tab's tool bar
@@ -399,8 +399,6 @@ fun HomeAlbums(
                                 yearCentered = false,
                                 showAuthors = true,
                                 album = album,
-                                homePage = true,
-                                iconSize = itemSize.size.dp,
                                 thumbnailSizeDp = itemSize.size.dp,
                                 thumbnailSizePx = itemSize.size.px,
                                 modifier = Modifier
@@ -568,8 +566,6 @@ fun HomeAlbums(
                                 alternative = true,
                                 showAuthors = true,
                                 album = album,
-                                homePage = true,
-                                iconSize = itemSize.size.dp,
                                 thumbnailSizeDp = itemSize.size.dp,
                                 thumbnailSizePx = itemSize.size.px,
                                 modifier = Modifier

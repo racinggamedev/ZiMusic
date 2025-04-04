@@ -208,7 +208,6 @@ import it.fast4x.rimusic.utils.mediaItemToggleLike
 import it.fast4x.rimusic.utils.move
 import it.fast4x.rimusic.utils.playlistSongsTypeFilterKey
 import it.fast4x.rimusic.utils.removeYTSongFromPlaylist
-import it.fast4x.rimusic.utils.unlikeYtVideoOrSong
 import it.fast4x.rimusic.utils.updateLocalPlaylist
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -1049,10 +1048,7 @@ fun LocalPlaylistSongs(
 
     LaunchedEffect(Unit,playlistUpdateDialog){
         Database.asyncTransaction {
-            totalSongsToUpdate = playlistAllSongs.filter { it.song.thumbnailUrl?.startsWith("https://lh3.googleusercontent.com/") == true
-                    && !((songAlbumInfo(it.asMediaItem.mediaId)?.id != null)
-                    && songArtistInfo(it.asMediaItem.mediaId).isNotEmpty()
-                    && !it.song.artistsText.isNullOrBlank()) }.size
+            totalSongsToUpdate = playlistAllSongs.filter { it.song.thumbnailUrl?.startsWith("https://lh3.googleusercontent.com/") == true && ((songAlbumInfo(it.asMediaItem.mediaId)?.id == null) || songArtistInfo(it.asMediaItem.mediaId).isEmpty()) }.size
         }
     }
 
@@ -1068,8 +1064,7 @@ fun LocalPlaylistSongs(
         withContext(Dispatchers.IO) {
             songsUpdated = 0
             val jobs = mutableListOf<Job>()
-            playlistAllSongs.filter { it.song.thumbnailUrl?.startsWith("https://lh3.googleusercontent.com/") == true
-                    && !((songAlbumInfo(it.asMediaItem.mediaId)?.id != null) && songArtistInfo(it.asMediaItem.mediaId).isNotEmpty() && !it.song.artistsText.isNullOrBlank()) }.forEach { song ->
+            playlistAllSongs.filter { it.song.thumbnailUrl?.startsWith("https://lh3.googleusercontent.com/") == true && ((songAlbumInfo(it.asMediaItem.mediaId)?.id == null) || songArtistInfo(it.asMediaItem.mediaId).isEmpty()) }.forEach { song ->
                 jobs.add(coroutineScope.launch(Dispatchers.IO) {
                     updateLocalPlaylist(song.song)
                 }
@@ -1715,7 +1710,7 @@ fun LocalPlaylistSongs(
                                                         context = context,
                                                         type = PopupType.Error
                                                     )
-                                                } else if (playlistPreview.playlist.isEditable && playlistNotMonthlyType && playlistPreview.playlist.browseId != "LM") {
+                                                } else if (playlistPreview.playlist.isEditable && playlistNotMonthlyType) {
                                                     isRenaming = true
                                                 } else SmartMessage(
                                                     context.resources.getString(R.string.info_cannot_rename_a_monthly_or_piped_playlist),
@@ -2392,9 +2387,6 @@ fun LocalPlaylistSongs(
                                                             song.asMediaItem.mediaId,
                                                             playlistId
                                                         )
-                                                    }
-                                                    if (playlistPreview?.playlist?.browseId == "LM"){
-                                                        unlikeYtVideoOrSong(song.asMediaItem)
                                                     }
                                                 }
                                             }

@@ -1,6 +1,8 @@
 <div align="center">
   <img src="./assets/design/latest/app_logo.svg" width="300" height="100" />    
-  <p><b>RiMusic</b> is a <b>multilingual</b> and <b>multiplatform</b> extensible offline player.</p>
+  <p><b>RiMusic</b> is a <b>multilingual</b> Android application for streaming music from YouTube Music.</p>
+  <p>It began as an <b>extension</b> of <b>ViMusic</b>, then acquired its own identity.</p>
+<p><b>It allows the user to customize it at will.</b></p>
 <p><b>RiMusic does not collect any data.</b></p>
 
   <a href="https://github.com/fast4x/RiMusic/releases"><img src="https://img.shields.io/github/downloads/fast4x/RiMusic/total?label=Total%20Downloads"></a>
@@ -8,20 +10,10 @@
   <a href="https://github.com/fast4x/RiMusic/releases/latest"><img src="https://img.shields.io/github/v/release/fast4x/RiMusic?label=Release"></a>
 </div>
 
-## ❗ IMPORTANT
-<div align="center"><b><H1>RiMusic turns into an extensible offline player.</H1></b></div>  
-
-## ❗ Disclaimer
-The developer of this project is not liable for any misuse or legal issues arising from its use and is not affiliated with any content providers. 
-<br>This project hosts zero content.
-<br>This project does not condone piracy. 
-<br>This project is created strictly for educational purposes.
-
-<!--
 ## ✨ Features
 - **Multilingual:** English, Italian, German, Russian, French, Spanish, Czech, Turkish, Romanian and more. Contributions for other languages are welcome
 - UI Mode, swtich from RiMusic to classic ViMusic style, viceversa
-- Auto cache songs for offline playback with a custom cache size, ONLY IF THE SPECIFIC PLATFORM ALLOWS
+- Auto cache songs for offline playback with a custom cache size
 - Download songs or entire playlists for offline playback (not cache) 
 - Background playback
 - Listening statistics
@@ -101,14 +93,13 @@ The developer of this project is not liable for any misuse or legal issues arisi
 [<img src="./assets/images/getItOpenapk.png" alt="OpenAPK" height="80">](https://www.openapk.net/rimusic/it.fast4x.rimusic/)
 [<img src="./assets/images/getItAccrescent.png" alt="Accrescent" height="80">](https://accrescent.app/app/it.fast4x.rimusic)
 [<img src="./assets/images/getItObtainium.png" alt="Obtainium" height="80">](https://apps.obtainium.imranr.dev/redirect?r=obtainium://app/%7B%22id%22%3A%22it.fast4x.rimusic%22%2C%22url%22%3A%22https%3A%2F%2Fgithub.com%2Ffast4x%2Frimusic%22%2C%22author%22%3A%22fast4x%22%2C%22name%22%3A%22RiMusic%22%2C%22preferredApkIndex%22%3A0%2C%22additionalSettings%22%3A%22%7B%5C%22includePrereleases%5C%22%3Afalse%2C%5C%22fallbackToOlderReleases%5C%22%3Atrue%2C%5C%22filterReleaseTitlesByRegEx%5C%22%3A%5C%22%5C%22%2C%5C%22filterReleaseNotesByRegEx%5C%22%3A%5C%22%5C%22%2C%5C%22verifyLatestTag%5C%22%3Afalse%2C%5C%22dontSortReleasesList%5C%22%3Afalse%2C%5C%22useLatestAssetDateAsReleaseDate%5C%22%3Afalse%2C%5C%22trackOnly%5C%22%3Afalse%2C%5C%22versionExtractionRegEx%5C%22%3A%5C%22%5C%22%2C%5C%22matchGroupToUse%5C%22%3A%5C%22%5C%22%2C%5C%22versionDetection%5C%22%3Atrue%2C%5C%22releaseDateAsVersion%5C%22%3Afalse%2C%5C%22useVersionCodeAsOSVersion%5C%22%3Afalse%2C%5C%22apkFilterRegEx%5C%22%3A%5C%22%5C%22%2C%5C%22invertAPKFilter%5C%22%3Afalse%2C%5C%22autoApkFilterByArch%5C%22%3Atrue%2C%5C%22appName%5C%22%3A%5C%22%5C%22%2C%5C%22shizukuPretendToBeGooglePlay%5C%22%3Afalse%2C%5C%22allowInsecure%5C%22%3Afalse%2C%5C%22exemptFromBackgroundUpdates%5C%22%3Afalse%2C%5C%22skipUpdateNotifications%5C%22%3Afalse%2C%5C%22about%5C%22%3A%5C%22RiMusic%20is%20a%20multilingual%20Android%20application%20for%20streaming%20music%20from%20YouTube%20Music.%20It%20began%20as%20an%20extension%20of%20ViMusic%2C%20then%20acquired%20its%20own%20identity.%20It%20allowing%20the%20user%20to%20customize%20it%20at%20will.%5C%22%7D%22%2C%22overrideSource%22%3Anull%7D)
-[<img src="./assets/images/getItIzzyOnDroid.png" alt="IzzyOnDroid" height="80">](https://apt.izzysoft.de/fdroid/index/apk/it.fast4x.rimusic/)
-[<img src="./assets/images/getItf-droid.png" alt="F-Droid" height="80">](https://f-droid.org/packages/it.fast4x.rimusic/)
+
+<!-- [<img src="./assets/images/getItIzzyOnDroid.png" alt="IzzyOnDroid" height="80">](https://apt.izzysoft.de/fdroid/index/apk/it.fast4x.rimusic/)
+[<img src="./assets/images/getItf-droid.png" alt="F-Droid" height="80">](https://f-droid.org/packages/it.fast4x.rimusic/) -->
 
 ## ❗ CUSTOM VERSION
 WARNING, the custom version is **not** an official release, download only if invited by the developer!
 [Go to custom version](https://github.com/fast4x/RiMusic/tree/master/customVersion)
-
--->
 
 ## ❓ FAQs
 - [Wiki page FAQs](https://github.com/fast4x/RiMusic/wiki/FAQs)
@@ -132,9 +123,9 @@ WARNING, the custom version is **not** an official release, download only if inv
 <tr>
     <td align="center" style="word-wrap: break-word; width: 90.0; height: 90.0">
         <a href=https://github.com/fast4x>
-            <img src=https://avatars.githubusercontent.com/u/1484476?v=4 width="60;"  style="border-radius:50%;align-items:center;justify-content:center;overflow:hidden;padding-top:10px" alt=Fast4x/>
+            <img src=https://avatars.githubusercontent.com/u/1484476?v=4 width="60;"  style="border-radius:50%;align-items:center;justify-content:center;overflow:hidden;padding-top:10px" alt=Rino Russo/>
             <br />
-            <sub style="font-size:14px"><b>Fast4x</b></sub>
+            <sub style="font-size:14px"><b>Rino Russo</b></sub>
         </a>
     </td>
     <td align="center" style="word-wrap: break-word; width: 90.0; height: 90.0">
@@ -445,13 +436,6 @@ WARNING, the custom version is **not** an official release, download only if inv
             <sub style="font-size:14px"><b>TheRedCyclops</b></sub>
         </a>
     </td>
-    <td align="center" style="word-wrap: break-word; width: 90.0; height: 90.0">
-        <a href=https://github.com/chayotic>
-            <img src=https://avatars.githubusercontent.com/u/152018343?v=4 width="60;"  style="border-radius:50%;align-items:center;justify-content:center;overflow:hidden;padding-top:10px" alt=TheRedCyclops/>
-            <br />
-            <sub style="font-size:14px"><b>Rohith Pai</b></sub>
-        </a>
-    </td>
     
 </tr>
 </table>
@@ -479,7 +463,6 @@ WARNING, the custom version is **not** an official release, download only if inv
 - [SuhasDissa](https://github.com/SuhasDissa)
 - [twistios](https://github.com/twistios)
 - [wispl](https://github.com/wispl)
-- [chayotic](https://github.com/chayotic)
 -->  
 
 
@@ -489,6 +472,7 @@ WARNING, the custom version is **not** an official release, download only if inv
 - **RiMusic previous Logo, many current icons from** [@ikanakova](https://github.com/ikanakova)
 - **RiMusic Website, other features from** [JZITNIK-github](https://github.com/JZITNIK-github), [martkol](https://github.com/martkol)
 - **RiMusic New player, lyrics layouts from** [aneesh1122](https://github.com/aneesh1122)
+- [**YouTube-Internal-Clients**](https://github.com/zerodytrash/YouTube-Internal-Clients): A python script that discovers hidden YouTube API clients. Just a research project.
 - [**Ionicons**](https://github.com/ionic-team/ionicons): Premium hand-crafted icons built by Ionic, for Ionic apps, web apps everywhere.
 - [**FlatIcon.com**](https://www.flaticon.com/): Download Free Icons, Stickers for your projects. Resources made by, for designers.
 - [**Translator**](https://github.com/therealbush/translator): A simple, free Google Translate library for Kotlin/JVM, Java.
@@ -497,4 +481,7 @@ WARNING, the custom version is **not** an official release, download only if inv
 - [**HypnoticCanvas**](https://mikepenz.github.io/HypnoticCanvas/): A shader modifier for Compose Multiplatform / Jetpack Compose
 
 
+## ❗ Disclaimer
+This project, its contents are not affiliated with, funded, authorized, endorsed by, or in any way associated with YouTube, Google LLC or any of its affiliates, subsidiaries.
 
+Any trademark, service mark, trade name, or other intellectual property rights used in this project are owned by the respective owners.

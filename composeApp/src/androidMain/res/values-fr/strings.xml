@@ -23,7 +23,6 @@
     <string name="enter_the_playlist_name">Entrez le nom de la playlist</string>
     <string name="playlists">Playlists</string>
     <string name="favorites">Favoris</string>
-    <string name="disliked">Détestés</string>
     <string name="quick_picks">Sélection Rapide</string>
     <string name="songs">Titres</string>
     <string name="other_versions">Autres versions</string>
@@ -559,7 +558,6 @@
     <string name="position_bottom">En bas</string>
     <string name="added_to_favorites">Ajouté aux favoris</string>
     <string name="removed_from_favorites">Retiré des favoris</string>
-    <string name="added_to_disliked">Ajouté aux détestés</string>
     <string name="lang_filipino">Philippin (Filipino)</string>
     <string name="action_bar_transparent_background">Arrière-plan transparent</string>
     <string name="pinfo_type">Type d\'informations</string>
@@ -583,7 +581,7 @@
     <string name="info_prevent_play_songs_with_age_limitation">Empêcher la lecture de titres avec une limite d\'âge</string>
     <string name="cache_location_private">Privé</string>
     <string name="cache_location_system">Système</string>
-    <string name="info_cannot_rename_a_monthly_or_piped_playlist">Cannot rename a monthly, online, YTM Liked or piped playlist</string>
+    <string name="info_cannot_rename_a_monthly_or_piped_playlist">Impossible de renommer une playlist mensuelle, en ligne ou canalisée</string>
     <string name="debug">DÉBOGAGE</string>
     <string name="enable_log_debug">Activer le journal du débogage</string>
     <string name="if_enabled_create_a_log_file_to_highlight_errors">Si activé, créez un fichier journal pour mettre en surbrillance les erreurs</string>
@@ -709,7 +707,6 @@ Volume BAS : titre précédent</string>
     <string name="info_pauses_player_when_volume_zero">Met en pause le lecteur lorsque le volume atteint 0 et reprend lorsque le volume est supérieur à 0</string>
     <string name="quality">Qualité</string>
     <string name="value_must_be_ip_address">La valeur doit être une adresse ip</string>
-    <string name="value_must_be_hex">La valeur doit être un code hexadécimal</string>
     <string name="swipe_up_to_open_the_queue">Glisser vers le haut pour ouvrir la file d\'attente</string>
     <string name="pinfo_show_icons">Afficher les informations avec les icônes</string>
     <string name="format_ms">%1$d ms</string>
@@ -946,18 +943,10 @@ Volume BAS : titre précédent</string>
     <string name="value_must_be_valid_url">La valeur doit être une URL valide</string>
     <string name="caching">Mise en cache...</string>
     <string name="lang_basque">Basque</string>
-    <string name="custom_dns_is_invalid">Le DNS personnalisé n\'est pas valide</string>
-    <string name="custom_dns_over_https_server">Serveur DNS personnalisé sur https</string>
-    <string name="info_aternative_dns_server">Si vous rencontrez des problèmes de chargement, vous pouvez utiliser un serveur DNS alternatif</string>
-    <string name="use_alternative_dns">Utiliser un DNS alternatif</string>
-    <string name="use_dns_over_https_title">Utiliser DNS plutôt que https</string>
-    <string name="also_delete_playback_data">Supprimer également les données de lecture</string>
-    <string name="rescue_center">Centre de Sauvetage</string>
-    <string name="midnightodyssey">Odyssée de Minuit</string>
-    <string name="circle">Cercle</string>
-    <string name="enter_hex">Entrer le code HEX à 7 chiffres</string>
-    <string name="streaming_player_type_default">Default</string>
-    <string name="streaming_player_type_next">Next</string>
-    <string name="streaming_player_type">Streaming player type</string>
-    <string name="streaming_player_type_advanced">Advanced</string>
+    <string name="custom_dns_is_invalid">Custom DNS is invalid</string>
+    <string name="custom_dns_over_https_server">Custom dns over https server</string>
+    <string name="info_aternative_dns_server">If you have loading problems, you can use an alternative dns server</string>
+    <string name="use_alternative_dns">Use alternative dns</string>
+    <string name="use_dns_over_https_title">Use dns over https</string>
+    <string name="also_delete_playback_data">Also delete playback data</string>
 </resources>

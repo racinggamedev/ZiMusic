@@ -13,7 +13,6 @@ import androidx.media3.datasource.HttpDataSource.InvalidResponseCodeException
 import androidx.media3.datasource.TransferListener
 import androidx.media3.datasource.cache.CacheDataSource
 import androidx.media3.datasource.okhttp.OkHttpDataSource
-import it.fast4x.environment.Environment
 import it.fast4x.environment.utils.ProxyPreferences
 import it.fast4x.environment.utils.getProxy
 import okhttp3.OkHttpClient
@@ -87,8 +86,7 @@ val Context.okHttpDataSourceFactory
     @OptIn(UnstableApi::class)
     get() = DefaultDataSource.Factory(
         this,
-        OkHttpDataSource
-            .Factory(okHttpClient())
+        OkHttpDataSource.Factory(okHttpClient())
             .setUserAgent("Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Mobile Safari/537.36")
     )
 
@@ -98,11 +96,13 @@ private fun okHttpClient(): OkHttpClient {
             .proxy(
                 getProxy(it)
             )
-            //.connectTimeout(Duration.ofSeconds(16))
-            //.readTimeout(Duration.ofSeconds(8))
+            .connectTimeout(Duration.ofSeconds(16))
+            .readTimeout(Duration.ofSeconds(8))
             .build()
     }
     return OkHttpClient.Builder()
+        .connectTimeout(Duration.ofSeconds(16))
+        .readTimeout(Duration.ofSeconds(8))
         .build()
 }
 

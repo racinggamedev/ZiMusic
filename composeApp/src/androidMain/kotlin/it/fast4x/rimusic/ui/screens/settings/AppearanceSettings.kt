@@ -1808,7 +1808,6 @@ fun AppearanceSettings(
                         PlayerPlayButtonType.Rectangular -> stringResource(R.string.rectangular)
                         PlayerPlayButtonType.Square -> stringResource(R.string.square)
                         PlayerPlayButtonType.CircularRibbed -> stringResource(R.string.circular_ribbed)
-                        PlayerPlayButtonType.Circle -> stringResource(R.string.circle)
                     }
                 },
             )
@@ -1881,7 +1880,6 @@ fun AppearanceSettings(
                         PlayerBackgroundColors.BlurredCoverColor -> stringResource(R.string.bg_colors_blurred_cover_background)
                         PlayerBackgroundColors.ColorPalette -> stringResource(R.string.colorpalette)
                         PlayerBackgroundColors.AnimatedGradient -> stringResource(R.string.animatedgradient)
-                        PlayerBackgroundColors.MidnightOdyssey ->  stringResource(R.string.midnightodyssey)
                     }
                 },
             )

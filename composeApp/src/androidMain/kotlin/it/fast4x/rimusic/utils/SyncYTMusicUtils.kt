@@ -49,7 +49,7 @@ suspend fun importYTMPrivatePlaylists(): Boolean {
 
             val localPlaylists = Database.ytmPrivatePlaylists().firstOrNull()
 
-            (localPlaylists?.filter { playlist -> playlist.browseId != "LM" && playlist.browseId !in ytmPrivatePlaylists.map { if (it.key.startsWith("VL")) it.key.substringAfter("VL") else it.key }  })?.forEach { playlist ->
+            (localPlaylists?.filter { playlist -> playlist.browseId !in ytmPrivatePlaylists.map { if (it.key.startsWith("VL")) it.key.substringAfter("VL") else it.key }  })?.forEach { playlist ->
                 Database.asyncTransaction{ delete(playlist) }
             }
 
@@ -73,29 +73,6 @@ suspend fun importYTMPrivatePlaylists(): Boolean {
                         Database.insert(localPlaylist.copy(browseId = playlistIdChecked))
                     } else {
                         Database.updatePlaylistName(YTP_PREFIX+remotePlaylist.title, localPlaylist?.id ?: 0L)
-                    }
-
-                    val ytmLikedSongsPlaylist = Database.playlistWithBrowseId("LM")
-
-                    if (ytmLikedSongsPlaylist == null){
-                        Database.insert(
-                            Playlist(
-                                name = "YTM Liked Music",
-                                browseId = "LM",
-                                isYoutubePlaylist = true,
-                                isEditable = true
-                            )
-                        )
-                    } else Database.updatePlaylistName(YTP_PREFIX+ytmLikedSongsPlaylist.name, ytmLikedSongsPlaylist.id)
-
-                    Database.playlistWithSongsByBrowseId("LM").firstOrNull()?.let {
-                        if (it.playlist.id != 0L && it.songs.isEmpty())
-                            it.playlist.id.let { id ->
-                                ytmPrivatePlaylistSync(
-                                    it.playlist,
-                                    id
-                                )
-                            }
                     }
 
                     Database.playlistWithSongsByBrowseId(playlistIdChecked).firstOrNull()?.let {

@@ -7,6 +7,5 @@ enum class PlayerBackgroundColors {
     BlurredCoverColor,
     ThemeColor,
     ColorPalette,
-    AnimatedGradient,
-    MidnightOdyssey
+    AnimatedGradient
 }

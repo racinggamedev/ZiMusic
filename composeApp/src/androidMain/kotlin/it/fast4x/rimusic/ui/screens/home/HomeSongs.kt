@@ -204,7 +204,6 @@ import org.dailyislam.android.utilities.isNetworkConnected
 import it.fast4x.rimusic.utils.isNowPlaying
 import kotlinx.coroutines.withContext
 import kotlin.system.exitProcess
-import it.fast4x.rimusic.utils.showDislikedPlaylistKey
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -385,7 +384,6 @@ fun HomeSongs(
     /************ */
 
     val showFavoritesPlaylist by rememberPreference(showFavoritesPlaylistKey, true)
-    val showDislikedPlaylist by rememberPreference(showDislikedPlaylistKey, false)
     val showCachedPlaylist by rememberPreference(showCachedPlaylistKey, true)
     val showMyTopPlaylist by rememberPreference(showMyTopPlaylistKey, true)
     val showDownloadedPlaylist by rememberPreference(showDownloadedPlaylistKey, true)
@@ -402,8 +400,6 @@ fun HomeSongs(
         BuiltInPlaylist.Top to String.format(stringResource(R.string.my_playlist_top),maxTopPlaylistItems.number)
     if (showOnDevicePlaylist) buttonsList +=
         BuiltInPlaylist.OnDevice to stringResource(R.string.on_device)
-    if (showDislikedPlaylist) buttonsList +=
-        BuiltInPlaylist.Disliked to stringResource(R.string.disliked)
 
     val excludeSongWithDurationLimit by rememberPreference(excludeSongsWithDurationLimitKey, DurationInMinutes.Disabled)
     val hapticFeedback = LocalHapticFeedback.current
@@ -418,8 +414,7 @@ fun HomeSongs(
 
             }
         }
-        BuiltInPlaylist.Downloaded, BuiltInPlaylist.Favorites, BuiltInPlaylist.Offline,
-        BuiltInPlaylist.Top, BuiltInPlaylist.Disliked -> {
+        BuiltInPlaylist.Downloaded, BuiltInPlaylist.Favorites, BuiltInPlaylist.Offline, BuiltInPlaylist.Top -> {
 
             LaunchedEffect(Unit, builtInPlaylist, sortBy, sortOrder, filter, topPlaylistPeriod) {
 
@@ -441,16 +436,6 @@ fun HomeSongs(
 
                 if (builtInPlaylist == BuiltInPlaylist.Favorites) {
                     Database.songsFavorites(sortBy, sortOrder)
-                        .collect {
-                            items =
-                                if (autoShuffle)
-                                    it.shuffled()
-                                else it
-                        }
-                }
-
-                if(builtInPlaylist == BuiltInPlaylist.Disliked) {
-                    Database.songsDisliked(sortBy, sortOrder)
                         .collect {
                             items =
                                 if (autoShuffle)
@@ -490,9 +475,9 @@ fun HomeSongs(
                                     if (excludeSongWithDurationLimit == DurationInMinutes.Disabled)
                                         true
                                     else
-                                        (item.song.durationText?.let { it1 ->
+                                        item.song.durationText?.let { it1 ->
                                             durationTextToMillis(it1)
-                                        } ?: 0L) < excludeSongWithDurationLimit.minutesInMilliSeconds
+                                        }!! < excludeSongWithDurationLimit.minutesInMilliSeconds
                                 }
                             }
                     } else {
@@ -506,9 +491,9 @@ fun HomeSongs(
                                     if (excludeSongWithDurationLimit == DurationInMinutes.Disabled)
                                         true
                                     else
-                                        (item.song.durationText?.let { it1 ->
+                                        item.song.durationText?.let { it1 ->
                                             durationTextToMillis(it1)
-                                        } ?: 0L) < excludeSongWithDurationLimit.minutesInMilliSeconds
+                                        }!! < excludeSongWithDurationLimit.minutesInMilliSeconds
                                 }
                             }
                     }
@@ -718,7 +703,6 @@ fun HomeSongs(
                 BuiltInPlaylist.Downloaded -> context.resources.getString(R.string.downloaded)
                 BuiltInPlaylist.Offline -> context.resources.getString(R.string.cached)
                 BuiltInPlaylist.Top -> context.resources.getString(R.string.playlist_top)
-                BuiltInPlaylist.Disliked -> context.resources.getString(R.string.disliked)
             },
             placeholder = stringResource(R.string.enter_the_playlist_name),
             setValue = { text ->

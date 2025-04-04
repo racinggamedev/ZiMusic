@@ -127,8 +127,7 @@ object MyPreCacheHelper {
                 context,
                 databaseProvider,
                 cache,
-                //createDataSourceFactory(),
-                createSimpleDataSourceFactory(),
+                createDataSourceFactory(),
                 //Executor(Runnable::run)
                 executor
             ).apply {
@@ -214,9 +213,9 @@ object MyPreCacheHelper {
                 println("MyPreCacheService scheduleDownload exception ${it.stackTraceToString()}")
             }
             DownloadSyncedLyrics(it = SongEntity(mediaItem.asSong), coroutineScope = coroutineScope)
-            context.imageLoader.enqueue(
+            context.imageLoader.execute(
                 ImageRequest.Builder(context)
-                    //.networkCachePolicy(CachePolicy.ENABLED)
+                    .networkCachePolicy(CachePolicy.ENABLED)
                     .data(imageUrl)
                     .size(1200)
                     .bitmapConfig(Bitmap.Config.ARGB_8888)

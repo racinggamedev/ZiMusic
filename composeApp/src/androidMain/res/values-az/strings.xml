@@ -23,7 +23,6 @@
     <string name="enter_the_playlist_name">Pleylist adın qeyd et</string>
     <string name="playlists">Dinləmə siyahıları</string>
     <string name="favorites">Sevimlilər</string>
-    <string name="disliked">Bəyənilmədi</string>
     <string name="quick_picks">Cəld seçimlər</string>
     <string name="songs">Mahnılar</string>
     <string name="other_versions">Digər versiyalar</string>
@@ -557,7 +556,6 @@
     <string name="position_bottom">Aşağı</string>
     <string name="added_to_favorites">Sevimlilərə əlavə edildi</string>
     <string name="removed_from_favorites">Sevimlilərdən silindi</string>
-    <string name="added_to_disliked">Bəyənilməyənlərə əlavə edildi</string>
     <string name="lang_filipino">Filippincə (Filipino)</string>
     <string name="action_bar_transparent_background">Şəffaf arxa plan</string>
     <string name="pinfo_type">Məlumat növü</string>
@@ -581,7 +579,7 @@
     <string name="info_prevent_play_songs_with_age_limitation">Yaş məhdudiyyətli mahnıları səsləndirməyi əngəllə</string>
     <string name="cache_location_private">Şəxsi</string>
     <string name="cache_location_system">Sistem</string>
-    <string name="info_cannot_rename_a_monthly_or_piped_playlist">Cannot rename a monthly, online, YTM Liked or piped playlist</string>
+    <string name="info_cannot_rename_a_monthly_or_piped_playlist">Aylıq, onlayn və ya piped pleylisti adlandırmaq mümkün deyil</string>
     <string name="debug">SINAQ</string>
     <string name="enable_log_debug">Sınaq jurnalın aktivləşdir</string>
     <string name="if_enabled_create_a_log_file_to_highlight_errors">Aktivdirsə, xətaları vurğulamaq üçün jurnal faylı yarat</string>
@@ -706,7 +704,6 @@
     <string name="info_pauses_player_when_volume_zero">Səs səviyyəsi 0-a çatdıqda oynadıcı dayanır və səs 0-dan çox olduqda davam edir</string>
     <string name="quality">Keyfiyyət</string>
     <string name="value_must_be_ip_address">Dəyər IP ünvanı olmalıdır</string>
-    <string name="value_must_be_hex">Dəyər hex kod olmalıdır</string>
     <string name="swipe_up_to_open_the_queue">Növbəni açmaq üçün yuxarı sürüşdür</string>
     <string name="pinfo_show_icons">Məlumatı işarələrlə göstər</string>
     <string name="format_ms">%1$s ms</string>
@@ -942,19 +939,11 @@
     <string name="export_log">Jurnalı ixrac et</string>
     <string name="value_must_be_valid_url">Dəyər etibarlı url olmalıdır</string>
     <string name="caching">Keşlənmə...</string>
-    <string name="lang_basque">Baskca (Basque)</string>
-    <string name="custom_dns_is_invalid">Fərdi DNS etibarsızdır</string>
-    <string name="custom_dns_over_https_server">Https server üzərindən xüsusi dns</string>
-    <string name="info_aternative_dns_server">Yükləmə probleminiz varsa, seçmə dns serveri istifadə edə bilərsiniz</string>
-    <string name="use_alternative_dns">Alternativ Dns istifadə et</string>
-    <string name="use_dns_over_https_title">Https üzərindən dns istifadə et</string>
-    <string name="also_delete_playback_data">Həmçinin səslənmə məlumatın sil</string>
-    <string name="rescue_center">Bərpa Mərkəzi</string>
-    <string name="midnightodyssey">Gecə yarısı Odyssey</string>
-    <string name="circle">Dairə</string>
-    <string name="enter_hex">7 rəqəmli HEX kodunu daxil et</string>
-    <string name="streaming_player_type_default">Default</string>
-    <string name="streaming_player_type_next">Next</string>
-    <string name="streaming_player_type">Streaming player type</string>
-    <string name="streaming_player_type_advanced">Advanced</string>
+    <string name="lang_basque">Basque</string>
+    <string name="custom_dns_is_invalid">Custom DNS is invalid</string>
+    <string name="custom_dns_over_https_server">Custom dns over https server</string>
+    <string name="info_aternative_dns_server">If you have loading problems, you can use an alternative dns server</string>
+    <string name="use_alternative_dns">Use alternative dns</string>
+    <string name="use_dns_over_https_title">Use dns over https</string>
+    <string name="also_delete_playback_data">Also delete playback data</string>
 </resources>

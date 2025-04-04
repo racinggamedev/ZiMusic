@@ -6,6 +6,5 @@ enum class BuiltInPlaylist {
     Offline,
     Downloaded,
     Top,
-    OnDevice,
-    Disliked
+    OnDevice
 }

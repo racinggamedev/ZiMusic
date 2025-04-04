@@ -71,9 +71,7 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.navigation)
             implementation(libs.media3.session)
-            implementation(libs.media3.ui)
             implementation(libs.kotlin.coroutines.guava)
-            implementation(libs.kotlin.concurrent.futures)
             implementation(libs.newpipe.extractor)
             implementation(libs.nanojson)
             implementation(libs.androidx.webkit)
@@ -87,6 +85,7 @@ kotlin {
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
 
+            implementation(projects.environment)
             implementation(projects.piped)
             implementation(projects.invidious)
 
@@ -134,8 +133,8 @@ android {
         applicationId = "it.fast4x.rimusic"
         minSdk = 21
         targetSdk = 35
-        versionCode = 89
-        versionName = "0.6.76"
+        versionCode = 88
+        versionName = "0.6.75"
 
         // INIT ENVIRONMENT
         resValue(
@@ -333,31 +332,6 @@ android {
             "env_aQpNCVOe2i",
             propertyOrEmpty("aQpNCVOe2i")
         )
-        resValue(
-            "string",
-            "env_XNl2TKXLlB",
-            propertyOrEmpty("XNl2TKXLlB")
-        )
-        resValue(
-            "string",
-            "env_yNjbjspY8v",
-            propertyOrEmpty("yNjbjspY8v")
-        )
-        resValue(
-            "string",
-            "env_eZueG672lt",
-            propertyOrEmpty("eZueG672lt")
-        )
-        resValue(
-            "string",
-            "env_WkUFhXtC3G",
-            propertyOrEmpty("WkUFhXtC3G")
-        )
-        resValue(
-            "string",
-            "env_z4Xe47r8Vs",
-            propertyOrEmpty("z4Xe47r8Vs")
-        )
         // INIT ENVIRONMENT
     }
 
@@ -522,7 +496,6 @@ dependencies {
     implementation(libs.media3.datasource.okhttp)
     implementation(libs.appcompat)
     implementation(libs.appcompat.resources)
-    implementation(libs.support)
     implementation(libs.media)
     implementation(libs.material)
     implementation(libs.material3)
@@ -552,6 +525,7 @@ dependencies {
     implementation(libs.hilt)
     ksp(libs.hilt.compiler)
 
+    implementation(projects.environment)
     implementation(projects.kugou)
     implementation(projects.lrclib)
     implementation(projects.piped)

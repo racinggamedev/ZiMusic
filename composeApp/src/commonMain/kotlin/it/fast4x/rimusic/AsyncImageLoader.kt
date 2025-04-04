@@ -20,16 +20,14 @@ fun getAsyncImageLoader(context: PlatformContext) =
         //.placeholder(Res.drawable.loader)
         //.error(Res.drawable.app_icon)
         //.fallback(Res.drawable.app_icon)
-        //.memoryCachePolicy(CachePolicy.ENABLED)
-        //.memoryCache {
-        //    MemoryCache.Builder().maxSizePercent(context, 0.3).strongReferencesEnabled(true).build()
-        //}
-        .diskCachePolicy(CachePolicy.ENABLED)
-        //.networkCachePolicy(CachePolicy.ENABLED)
-        .diskCache {
-            newDiskCache()
+        .memoryCachePolicy(CachePolicy.ENABLED)
+        .memoryCache {
+            MemoryCache.Builder().maxSizePercent(context, 0.3).strongReferencesEnabled(true).build()
         }
-        .crossfade(true)
+        .diskCachePolicy(CachePolicy.ENABLED)
+        .networkCachePolicy(CachePolicy.ENABLED).diskCache {
+            newDiskCache()
+        }.crossfade(true)
         .logger(DebugLogger())
         .build()
 

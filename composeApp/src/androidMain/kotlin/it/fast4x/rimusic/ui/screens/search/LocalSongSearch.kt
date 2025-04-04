@@ -120,6 +120,8 @@ fun LocalSongSearch(
         FocusRequester()
     }
 
+    //val navigationBarPosition by rememberPreference(navigationBarPositionKey, NavigationBarPosition.Bottom)
+    //val contentWidth = context.preferences.getFloat(contentWidthKey,0.8f)
     Box(
         modifier = Modifier
             .background(colorPalette().background0)
@@ -143,7 +145,25 @@ fun LocalSongSearch(
                 key = "header",
                 contentType = 0
             ) {
+                /*
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(10.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                ) {
+                    HeaderWithIcon(
+                        title = "${stringResource(R.string.search)} ${stringResource(R.string.library)}",
+                        iconId = R.drawable.library,
+                        enabled = true,
+                        showIcon = true,
+                        modifier = Modifier
+                            .padding(bottom = 8.dp),
+                        onClick = {}
+                    )
 
+                }
+                 */
                 Header(
                     titleContent = {
                         BasicTextField(
@@ -165,7 +185,72 @@ fun LocalSongSearch(
                                 .fillMaxWidth()
                         )
                     },
-                    actionsContent = {},
+                    actionsContent = {
+                        /*
+                        Row(
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier
+                                .padding(horizontal = 40.dp)
+                                .fillMaxWidth()
+                        ) {
+                            IconButton(
+                                onClick = onAction1,
+                                icon = R.drawable.globe,
+                                color = colorPalette().favoritesIcon,
+                                modifier = Modifier
+                                    .size(24.dp)
+                            )
+                            IconButton(
+                                onClick = onAction2,
+                                icon = R.drawable.library,
+                                color = colorPalette().favoritesIcon,
+                                modifier = Modifier
+                                    .size(24.dp)
+                            )
+                            IconButton(
+                                onClick = onAction3,
+                                icon = R.drawable.link,
+                                color = colorPalette().favoritesIcon,
+                                modifier = Modifier
+                                    .size(24.dp)
+                            )
+                            /*
+                            IconButton(
+                                onClick = onAction4,
+                                icon = R.drawable.chevron_back,
+                                color = colorPalette().favoritesIcon,
+                                modifier = Modifier
+                                    .size(24.dp)
+                            )
+                             */
+                        }
+                        /*
+                        if (textFieldValue.text.isNotEmpty()) {
+                            SecondaryTextButton(
+                                text = stringResource(R.string.clear),
+                                onClick = { onTextFieldValueChanged(TextFieldValue()) }
+                            )
+                        }
+                         */
+
+                         */
+                    },
+                    /*
+                    modifier = Modifier
+                        .drawBehind {
+
+                            val strokeWidth = 1 * density
+                            val y = size.height - strokeWidth / 2
+
+                            drawLine(
+                                color = colorPalette().textDisabled,
+                                start = Offset(x = 0f, y = y/2),
+                                end = Offset(x = size.maxDimension, y = y/2),
+                                strokeWidth = 2.dp.toPx()
+                            )
+                        }
+                     */
                 )
             }
 

@@ -33,7 +33,6 @@ import it.fast4x.environment.models.bodies.ContinuationBody
 import it.fast4x.environment.models.bodies.SearchBody
 import it.fast4x.environment.requests.playlistPage
 import it.fast4x.environment.requests.searchPage
-import it.fast4x.environment.requests.song
 import it.fast4x.environment.utils.from
 import it.fast4x.kugou.KuGou
 import it.fast4x.lrclib.LrcLib
@@ -105,33 +104,18 @@ fun getTimestampFromDate(date: String): Long {
 fun mediaItemToggleLike( mediaItem: MediaItem) {
     Database.asyncTransaction {
         if (songExist(mediaItem.mediaId) == 0)
-            insert(mediaItem)
-        if (getLikedAt(mediaItem.mediaId) in listOf(null, -1L))
-            like(
+            insert(mediaItem, Song::toggleLike)
+        //else {
+            if (songliked(mediaItem.mediaId) == 0)
+                like(
+                    mediaItem.mediaId,
+                    System.currentTimeMillis()
+                )
+            else like(
                 mediaItem.mediaId,
-                System.currentTimeMillis()
+                null
             )
-        else like(
-            mediaItem.mediaId,
-            null
-        )
-        MyDownloadHelper.autoDownloadWhenLiked(
-            context(),
-            mediaItem
-        )
-    }
-}
-
-@UnstableApi
-fun mediaItemSetLiked( mediaItem: MediaItem ) {
-    Database.asyncTransaction {
-        if (songExist(mediaItem.mediaId) == 0)
-            insert(mediaItem)
-        if (getLikedAt(mediaItem.mediaId) in listOf(null, -1L))
-            like(
-                mediaItem.mediaId,
-                System.currentTimeMillis()
-            )
+        //}
         MyDownloadHelper.autoDownloadWhenLiked(
             context(),
             mediaItem
@@ -757,40 +741,60 @@ suspend fun getAlbumVersionFromVideo(song: Song,playlistId : Long, position : In
 }
 
 suspend fun updateLocalPlaylist(song: Song){
+    val searchQuery = Environment.searchPage(
+        body = SearchBody(
+            query = "${cleanPrefix(song.title)} ${song.artistsText}",
+            params = Environment.SearchFilter.Song.value
+        ),
+        fromMusicShelfRendererContent = Environment.SongItem.Companion::from
+    )
 
-    val matchedSong = Environment.song(song.id)?.getOrNull()
+    val searchResults = searchQuery?.getOrNull()?.items
+
+    fun findSongIndex() : Int {
+        for (i in 0..9) {
+            val requiredSong = searchResults?.getOrNull(i)
+            val songMatched = (requiredSong?.asMediaItem?.mediaId) == (song.asMediaItem.mediaId)
+            if (songMatched) return i
+        }
+        return -1
+    }
+
+    val matchedSong = searchResults?.getOrNull(findSongIndex())
     val artistsNames = matchedSong?.authors?.filter { it.endpoint != null }?.map { it.name }
     val artistNameString = matchedSong?.asMediaItem?.mediaMetadata?.artist?.toString() ?: ""
     val artistsIds = matchedSong?.authors?.filter { it.endpoint != null }?.map { it.endpoint?.browseId }
 
     Database.asyncTransaction {
-        if (matchedSong != null && song.id == matchedSong.asMediaItem.mediaId) {
-            insert(
-                Album(id = matchedSong.album?.endpoint?.browseId ?: "", title = matchedSong.asMediaItem.mediaMetadata.albumTitle?.toString()),
-                SongAlbumMap(songId = matchedSong.asMediaItem.mediaId, albumId = matchedSong.album?.endpoint?.browseId ?: "", position = null)
-            )
-            CoroutineScope(Dispatchers.IO).launch {
-                val album = Database.album(matchedSong.album?.endpoint?.browseId ?: "").firstOrNull()
-                album?.copy(thumbnailUrl = matchedSong.thumbnail?.url)?.let { update(it) }
-            }
+        if (findSongIndex() != -1) {
+            if (matchedSong != null) {
+                insert(
+                    Album(id = matchedSong.album?.endpoint?.browseId ?: "", title = matchedSong.asMediaItem.mediaMetadata.albumTitle?.toString()),
+                    SongAlbumMap(songId = matchedSong.asMediaItem.mediaId, albumId = matchedSong.album?.endpoint?.browseId ?: "", position = null)
+                )
+                CoroutineScope(Dispatchers.IO).launch {
+                    val album = Database.album(matchedSong.album?.endpoint?.browseId ?: "").firstOrNull()
+                    album?.copy(thumbnailUrl = matchedSong.thumbnail?.url)?.let { update(it) }
+                }
 
-            if ((artistsNames != null) && (artistsIds != null)) {
-                artistsNames.let { artistNames ->
-                    artistsIds.let { artistIds ->
-                        if (artistNames.size == artistIds.size) {
-                            insert(
-                                artistNames.mapIndexed { index, artistName ->
-                                    Artist(id = (artistIds[index]) ?: "", name = artistName)
-                                },
-                                artistIds.map { artistId ->
-                                    SongArtistMap(songId = song.id, artistId = (artistId) ?: "")
-                                }
-                            )
+                if ((artistsNames != null) && (artistsIds != null)) {
+                    artistsNames.let { artistNames ->
+                        artistsIds.let { artistIds ->
+                            if (artistNames.size == artistIds.size) {
+                                insert(
+                                    artistNames.mapIndexed { index, artistName ->
+                                        Artist(id = (artistIds[index]) ?: "", name = artistName)
+                                    },
+                                    artistIds.map { artistId ->
+                                        SongArtistMap(songId = song.id, artistId = (artistId) ?: "")
+                                    }
+                                )
+                            }
                         }
                     }
                 }
+                Database.updateSongArtist(matchedSong.asMediaItem.mediaId, artistNameString)
             }
-            Database.updateSongArtist(matchedSong.asMediaItem.mediaId, artistNameString)
         }
     }
 }
@@ -1001,39 +1005,29 @@ suspend fun addToYtLikedSong(mediaItem: MediaItem){
                     )
                 }
         } else {
-            unlikeYtVideoOrSong(mediaItem)
-        }
-    }
-}
-
-@OptIn(UnstableApi::class)
-suspend fun unlikeYtVideoOrSong(mediaItem: MediaItem){
-    if(isYouTubeSyncEnabled()){
-        removelikeVideoOrSong(mediaItem.mediaId)
-            .onSuccess {
-                Database.asyncTransaction {
-                    if(songExist(mediaItem.mediaId) == 0){
-                        insert(mediaItem)
+            removelikeVideoOrSong(mediaItem.mediaId)
+                .onSuccess {
+                    Database.asyncTransaction {
+                        like(mediaItem.mediaId, null)
+                        MyDownloadHelper.autoDownloadWhenLiked(
+                            context(),
+                            mediaItem
+                        )
                     }
-                    like(mediaItem.mediaId, null)
-                    MyDownloadHelper.autoDownloadWhenLiked(
-                        context(),
-                        mediaItem
+                    SmartMessage(
+                        appContext().resources.getString(R.string.song_unliked_yt),
+                        context = appContext(),
+                        durationLong = false
                     )
                 }
-                SmartMessage(
-                    appContext().resources.getString(R.string.song_unliked_yt),
-                    context = appContext(),
-                    durationLong = false
-                )
-            }
-            .onFailure {
-                SmartMessage(
-                    appContext().resources.getString(R.string.songs_unliked_yt_failed),
-                    context = appContext(),
-                    durationLong = false
-                )
-            }
+                .onFailure {
+                    SmartMessage(
+                        appContext().resources.getString(R.string.songs_unliked_yt_failed),
+                        context = appContext(),
+                        durationLong = false
+                    )
+                }
+        }
     }
 }
 
@@ -1084,8 +1078,4 @@ inline fun <reified T : Throwable> Throwable.findCause(): T? {
     }
 
     return null
-}
-
-fun isValidHex(hex: String): Boolean {
-    return hex.length == 7 && hex.startsWith("#")
 }

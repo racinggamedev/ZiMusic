@@ -63,14 +63,6 @@ fun Playlist(
                         .fillMaxSize(),
                     contentScale = ContentScale.Crop,
                 )
-            } else if (playlist.playlist.browseId == "LM") {
-                AsyncImage(
-                    model = "https://www.gstatic.com/youtube/media/ytm/images/pbg/liked-music-@1200.png",
-                    contentDescription = null,
-                    modifier = Modifier
-                        .fillMaxSize(),
-                    contentScale = ContentScale.Crop
-                )
             } else if (thumbnails.toSet().size == 1) {
                 AsyncImage(
                     model = thumbnails.first().thumbnail(thumbnailSizePx),

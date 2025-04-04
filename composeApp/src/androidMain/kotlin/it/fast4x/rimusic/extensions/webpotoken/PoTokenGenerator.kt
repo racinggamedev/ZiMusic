@@ -1,40 +1,39 @@
 package it.fast4x.rimusic.extensions.webpotoken
 
-import android.os.Build
+import android.os.Handler
+import android.os.Looper
 import android.webkit.CookieManager
-import androidx.annotation.RequiresApi
-import it.fast4x.rimusic.appContext
-import kotlinx.coroutines.Dispatchers
+import it.fast4x.environment.Environment
+import it.fast4x.rimusic.context
+import it.fast4x.rimusic.isDebugModeEnabled
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.sync.withLock
-import kotlinx.coroutines.withContext
+import timber.log.Timber
 
 class PoTokenGenerator {
-    private val TAG = "PoTokenGenerator"
-
+    private val TAG = PoTokenGenerator::class.simpleName
     private val webViewSupported by lazy { runCatching { CookieManager.getInstance() }.isSuccess }
     private var webViewBadImpl = false // whether the system has a bad WebView implementation
 
-    private val webPoTokenGenLock = Mutex()
-    private var webPoTokenSessionId: String? = null
+    private object WebPoTokenGenLock
+    private var webPoTokenSessionIdentifier: String? = null
     private var webPoTokenStreamingPot: String? = null
     private var webPoTokenGenerator: PoTokenWebView? = null
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun getWebClientPoToken(videoId: String, sessionId: String): PoTokenResult? {
+    fun getWebClientPoToken(videoId: String): PoTokenResult? {
         if (!webViewSupported || webViewBadImpl) {
             return null
         }
 
-        return try {
-            runBlocking { getWebClientPoToken(videoId, sessionId, forceRecreate = false) }
+        try {
+            return getWebClientPoToken(videoId, false)
         } catch (e: Exception) {
             when (e) {
                 is BadWebViewException -> {
-                    //Log.e(TAG, "Could not obtain poToken because WebView is broken", e)
+                    if (TAG != null) {
+                        Timber.tag(TAG).e(e, "Could not obtain poToken because WebView is broken")
+                    }
                     webViewBadImpl = true
-                    null
+                    return null
                 }
                 else -> throw e // includes PoTokenException
             }
@@ -44,40 +43,57 @@ class PoTokenGenerator {
     /**
      * @param forceRecreate whether to force the recreation of [webPoTokenGenerator], to be used in
      * case the current [webPoTokenGenerator] threw an error last time
-     * [PoTokenWebView.generatePoToken] was called
+     * [PoTokenGenerator.generatePoToken] was called
      */
-    @RequiresApi(Build.VERSION_CODES.O)
-    private suspend fun getWebClientPoToken(videoId: String, sessionId: String, forceRecreate: Boolean): PoTokenResult {
-        //Log.d(TAG, "Web poToken requested: $videoId, $sessionId")
+    private fun getWebClientPoToken(videoId: String, forceRecreate: Boolean): PoTokenResult {
+        // just a helper class since Kotlin does not have builtin support for 4-tuples
+        data class Quadruple<T1, T2, T3, T4>(val t1: T1, val t2: T2, val t3: T3, val t4: T4)
 
-        val (poTokenGenerator, streamingPot, hasBeenRecreated) =
-            webPoTokenGenLock.withLock {
-                val shouldRecreate =
-                    forceRecreate || webPoTokenGenerator == null || webPoTokenGenerator!!.isExpired || webPoTokenSessionId != sessionId
+        val (poTokenGenerator, sessionIdentifier, streamingPot, hasBeenRecreated) =
+            synchronized(WebPoTokenGenLock) {
+                val shouldRecreate = webPoTokenGenerator == null || forceRecreate || webPoTokenGenerator!!.isExpired()
 
                 if (shouldRecreate) {
-                    webPoTokenSessionId = sessionId
-
-                    withContext(Dispatchers.Main) {
-                        webPoTokenGenerator?.close()
+                    webPoTokenSessionIdentifier = if (Environment.cookie != null) {
+                        // signed in sessions use dataSyncId as identifier
+                        Environment.dataSyncId
+                    } else {
+                        // signed out sessions use visitorData as identifier
+                        Environment.visitorData
                     }
 
-                    // create a new webPoTokenGenerator
-                    webPoTokenGenerator = PoTokenWebView.getNewPoTokenGenerator(appContext())
+                    if (webPoTokenSessionIdentifier == null) {
+                        throw PoTokenException("Session identifier is null")
+                    }
 
-                    // The streaming poToken needs to be generated exactly once before generating
-                    // any other (player) tokens.
-                    webPoTokenStreamingPot = webPoTokenGenerator!!.generatePoToken(webPoTokenSessionId!!)
+                    runBlocking {
+                        // close the current webPoTokenGenerator on the main thread
+                        webPoTokenGenerator?.let { Handler(Looper.getMainLooper()).post { it.close() } }
+
+                        // create a new webPoTokenGenerator
+                        webPoTokenGenerator = PoTokenWebView.newPoTokenGenerator(context())
+
+                        // The streaming poToken needs to be generated exactly once before generating
+                        // any other (player) tokens.
+                        webPoTokenStreamingPot = webPoTokenGenerator!!.generatePoToken(webPoTokenSessionIdentifier!!)
+                    }
                 }
 
-                Triple(webPoTokenGenerator!!, webPoTokenStreamingPot!!, shouldRecreate)
+                return@synchronized Quadruple(
+                    webPoTokenGenerator!!,
+                    webPoTokenSessionIdentifier!!,
+                    webPoTokenStreamingPot!!,
+                    shouldRecreate
+                )
             }
 
         val playerPot = try {
             // Not using synchronized here, since poTokenGenerator would be able to generate
             // multiple poTokens in parallel if needed. The only important thing is for exactly one
-            // streaming poToken (based on [sessionId]) to be generated before anything else.
-            poTokenGenerator.generatePoToken(videoId)
+            // visitorData/streaming poToken to be generated before anything else.
+            runBlocking {
+                poTokenGenerator.generatePoToken(videoId)
+            }
         } catch (throwable: Throwable) {
             if (hasBeenRecreated) {
                 // the poTokenGenerator has just been recreated (and possibly this is already the
@@ -85,14 +101,23 @@ class PoTokenGenerator {
                 throw throwable
             } else {
                 // retry, this time recreating the [webPoTokenGenerator] from scratch;
-                // this might happen for example if the app goes in the background and the WebView
+                // this might happen for example if NewPipe goes in the background and the WebView
                 // content is lost
-                //Log.e(TAG, "Failed to obtain poToken, retrying", throwable)
-                return getWebClientPoToken(videoId = videoId, sessionId = sessionId, forceRecreate = true)
+                if (TAG != null) {
+                    Timber.tag(TAG).e(throwable, "Failed to obtain poToken, retrying")
+                }
+                return getWebClientPoToken(videoId = videoId, forceRecreate = true)
             }
         }
 
-        //Log.d(TAG, "[$videoId] playerPot=$playerPot, streamingPot=$streamingPot")
+        if (isDebugModeEnabled()) {
+            if (TAG != null) {
+                Timber.tag(TAG).d(
+                    "poToken for $videoId: playerPot=$playerPot, " +
+                            "streamingPot=$streamingPot, sessionIdentifier=$sessionIdentifier"
+                )
+            }
+        }
 
         return PoTokenResult(playerPot, streamingPot)
     }

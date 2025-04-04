@@ -128,6 +128,14 @@ fun AccountsSettings() {
                     1f
             )
             .verticalScroll(rememberScrollState())
+        /*
+        .padding(
+            LocalPlayerAwareWindowInsets.current
+                .only(WindowInsetsSides.Vertical + WindowInsetsSides.End)
+                .asPaddingValues()
+        )
+
+         */
     ) {
         HeaderWithIcon(
             title = stringResource(R.string.tab_accounts),
@@ -138,6 +146,9 @@ fun AccountsSettings() {
             onClick = {}
         )
 
+        // rememberEncryptedPreference only works correct with API 24 and up
+
+        //TODO MANAGE LOGIN
         /****** YOUTUBE LOGIN ******/
 
         var useYtLoginOnlyForBrowse by rememberPreference(useYtLoginOnlyForBrowseKey, true)
@@ -171,9 +182,9 @@ fun AccountsSettings() {
             onCheckedChange = {
                 isYouTubeLoginEnabled = it
                 if (!it) {
-//                    visitorData = ""
-//                    dataSyncId = ""
-//                    cookie = ""
+                    visitorData = ""
+                    dataSyncId = ""
+                    cookie = ""
                     accountName = ""
                     accountChannelHandle = ""
                     accountEmail = ""
@@ -211,14 +222,14 @@ fun AccountsSettings() {
                                 icon = R.drawable.ytmusic,
                                 iconColor = colorPalette().text,
                                 onClick = {
-                                    if (isLoggedIn) { // if logged in, disconnect and clean data
+                                    if (isLoggedIn) {
                                         cookie = ""
                                         accountName = ""
                                         accountChannelHandle = ""
                                         accountEmail = ""
                                         accountThumbnail = ""
-                                        //visitorData = ""
-                                        //dataSyncId = ""
+                                        visitorData = ""
+                                        dataSyncId = ""
                                         loginYouTube = false
                                         //Delete cookies after logout
                                         val cookieManager = CookieManager.getInstance()
@@ -254,11 +265,21 @@ fun AccountsSettings() {
                                     showUserInfoDialog = true
                                 }
                             )
-
+                            /*
+                            ImportantSettingsDescription(
+                                text = "You need to log in to listen the songs online"
+                            )
+                             */
+                            //SettingsDescription(text = stringResource(R.string.restarting_rimusic_is_required))
 
                             CustomModalBottomSheet(
                                 showSheet = loginYouTube,
                                 onDismissRequest = {
+//                                    SmartMessage(
+//                                        "Restart RiMusic, please",
+//                                        type = PopupType.Info,
+//                                        context = context
+//                                    )
                                     loginYouTube = false
                                 },
                                 containerColor = colorPalette().background0,
@@ -286,25 +307,44 @@ fun AccountsSettings() {
                                                 context = context
                                             )
 
+//                                            GlobalScope.launch {
+//                                                Environment.accountInfo().onSuccess {
+//                                                    println("YoutubeLogin getAccounfInfo from settings $it")
+//                                                    accountName = it?.name.orEmpty()
+//                                                    accountEmail = it?.email.orEmpty()
+//                                                    accountChannelHandle = it?.channelHandle.orEmpty()
+//                                                    accountThumbnail = it?.thumbnailUrl.orEmpty()
+//                                                }.onFailure {
+//                                                    Timber.e("Error YoutubeLogin getAccounfInfo from settings : $it.stackTraceToString()")
+//                                                    println("Error YoutubeLogin getAccounfInfo from settings : ${it.stackTraceToString()}")
+//                                                }
+//                                            }
+
+                                            restartService = true
+                                            //restartActivity = !restartActivity // used only to force restart of activity
                                         }
 
                                     }
                                 )
                             }
-
+                            RestartPlayerService(restartService, onRestart = {
+                                restartService = false
+                                //restartActivity = !restartActivity
+                            })
                         }
 
                     }
 
+                //}
 
-//                SwitchSettingEntry(
-//                    title = stringResource(R.string.use_ytm_login_only_for_browse),
-//                    text = stringResource(R.string.info_use_ytm_login_only_for_browse),
-//                    isChecked = useYtLoginOnlyForBrowse,
-//                    onCheckedChange = {
-//                        useYtLoginOnlyForBrowse = it
-//                    }
-//                )
+                SwitchSettingEntry(
+                    title = stringResource(R.string.use_ytm_login_only_for_browse),
+                    text = stringResource(R.string.info_use_ytm_login_only_for_browse),
+                    isChecked = useYtLoginOnlyForBrowse,
+                    onCheckedChange = {
+                        useYtLoginOnlyForBrowse = it
+                    }
+                )
 
                 SwitchSettingEntry(
                     //isEnabled = false,
@@ -316,6 +356,8 @@ fun AccountsSettings() {
                         restartActivity = true
                     }
                 )
+
+                //RestartActivity(restartActivity, onRestart = { restartActivity = false })
 
             }
         }
@@ -353,7 +395,7 @@ fun AccountsSettings() {
 
     /****** PIPED ******/
 
-
+    // rememberEncryptedPreference only works correct with API 24 and up
     if (isAtLeastAndroid7) {
         var isPipedEnabled by rememberPreference(isPipedEnabledKey, false)
         var isPipedCustomEnabled by rememberPreference(isPipedCustomEnabledKey, false)
@@ -468,6 +510,13 @@ fun AccountsSettings() {
                                 menuState.hide()
                                 pipedApiBaseUrl = it.apiBaseUrl.toString()
                                 pipedInstanceName = it.name
+                                /*
+                                instances.indexOf(it).let { index ->
+                                    //instances[index].apiBaseUrl
+                                    instanceSelected = index
+                                    //println("mediaItem Instance ${instances[index].apiBaseUrl}")
+                                }
+                                 */
                                 loadInstances = false
                                 showInstances = false
                             }
@@ -533,12 +582,14 @@ fun AccountsSettings() {
                 }
 
                 TextDialogSettingEntry(
+                    //isEnabled = pipedApiToken.isEmpty(),
                     title = stringResource(R.string.piped_username),
                     text = pipedUsername,
                     currentText = pipedUsername,
                     onTextSave = { pipedUsername = it }
                 )
                 TextDialogSettingEntry(
+                    //isEnabled = pipedApiToken.isEmpty(),
                     title = stringResource(R.string.piped_password),
                     text = if (pipedPassword.isNotEmpty()) "********" else "",
                     currentText = pipedPassword,
@@ -575,6 +626,8 @@ fun AccountsSettings() {
 
     /****** DISCORD ******/
 
+    // rememberEncryptedPreference only works correct with API 24 and up
+    //if (isAtLeastAndroid7) {
         var isDiscordPresenceEnabled by rememberPreference(isDiscordPresenceEnabledKey, false)
         var loginDiscord by remember { mutableStateOf(false) }
         var discordPersonalAccessToken by rememberPreference(
@@ -638,6 +691,7 @@ fun AccountsSettings() {
                 }
             }
         }
+    //}
 
     /****** DISCORD ******/
 

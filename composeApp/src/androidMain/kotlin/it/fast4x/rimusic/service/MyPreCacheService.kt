@@ -66,17 +66,18 @@ class MyPreCacheService : DownloadService(
         notMetRequirements: Int
     ) = NotificationCompat
         .Builder(
-             this,
-             MyPreCacheHelper
+            /* context = */ this,
+            /* notification = */ MyPreCacheHelper
                 .getDownloadNotificationHelper(this)
                 .buildProgressNotification(
-                 this,
-                 R.drawable.download,
-                 null,
+                /* context            = */ this,
+                /* smallIcon          = */ R.drawable.download,
+                /* contentIntent      = */ null,
+                /* message            = */
                     downloadManager.currentDownloads.map { it.request.data }.firstOrNull()
                         ?.let { Util.fromUtf8Bytes(it) } ?: "${downloads.size} in progress",
-                 downloads,
-                 notMetRequirements
+                /* downloads          = */ downloads,
+                /* notMetRequirements = */ notMetRequirements
             )
         )
         .setContentTitle(appContext().resources.getString(R.string.caching))
@@ -84,12 +85,15 @@ class MyPreCacheService : DownloadService(
         // Add action in notification
         .addAction(
             NotificationCompat.Action.Builder(
-                R.drawable.close,
-                getString(R.string.cancel),
+                /* icon = */ R.drawable.close,
+                /* title = */ getString(R.string.cancel),
                 notificationActionReceiver.cancel.pendingIntent
+//                /* intent = */ Intent(this,MyDownloadService::class.java).also {
+//                    it.action = notificationActionReceiver.cancel.value
+//                    it.putExtra("id", FOREGROUND_NOTIFICATION_ID + 1)
+//                }
             ).build()
-        )
-        .build()
+        ).build()
 
     /**
      * Creates and displays notifications for downloads when they complete or fail.
@@ -140,13 +144,33 @@ class MyPreCacheService : DownloadService(
                 else -> return
             }
             NotificationUtil.setNotification(context, nextNotificationId++, notification)
+
         }
+
+
     }
 
     inner class NotificationActionReceiver : ActionReceiver("it.fast4x.rimusic.precache_notification_action") {
         val cancel by action { context, intent ->
-            downloadManager.currentDownloads.forEach { download ->
-                downloadManager.removeDownload(download.request.id)
+            runCatching {
+//                sendSetStopReason(
+//                     context,
+//                     MyDownloadService::class.java,
+//                     ACTION_SET_STOP_REASON,
+//                     intent.getIntExtra("id", 0),
+//                    true
+//                    )
+                sendPauseDownloads(
+                    /* context         = */ context,
+                    /* clazz           = */ MyPreCacheService::class.java,
+                    /* foreground      = */ true
+                )
+            }.recoverCatching {
+                sendPauseDownloads(
+                    /* context         = */ context,
+                    /* clazz           = */ MyPreCacheService::class.java,
+                    /* foreground      = */ false
+                )
             }
         }
     }

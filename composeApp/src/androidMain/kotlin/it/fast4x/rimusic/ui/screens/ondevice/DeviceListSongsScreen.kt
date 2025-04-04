@@ -28,7 +28,6 @@ import it.fast4x.rimusic.utils.showFavoritesPlaylistKey
 import it.fast4x.rimusic.utils.showMyTopPlaylistKey
 import it.fast4x.rimusic.utils.showOnDevicePlaylistKey
 import it.fast4x.rimusic.ui.components.Skeleton
-import it.fast4x.rimusic.utils.showDislikedPlaylistKey
 
 @ExperimentalMaterialApi
 @ExperimentalTextApi
@@ -56,7 +55,6 @@ fun DeviceListSongsScreen(
     )
 
     val showFavoritesPlaylist by rememberPreference(showFavoritesPlaylistKey, true)
-    val showDislikedPlaylist by rememberPreference(showDislikedPlaylistKey, false)
     val showCachedPlaylist by rememberPreference(showCachedPlaylistKey, true)
     val showMyTopPlaylist by rememberPreference(showMyTopPlaylistKey, true)
     val showDownloadedPlaylist by rememberPreference(showDownloadedPlaylistKey, true)
@@ -80,8 +78,6 @@ fun DeviceListSongsScreen(
                         item(3, stringResource(R.string.my_playlist_top)  + " ${maxTopPlaylistItems.number}" , R.drawable.trending)
                     if(showOnDevicePlaylist)
                         item(4, stringResource(R.string.on_device), R.drawable.musical_notes)
-                    if(showDislikedPlaylist)
-                        item(5, stringResource(R.string.disliked), R.drawable.heart_dislike)
                 }
             ) { currentTabIndex ->
                 saveableStateHolder.SaveableStateProvider(key = currentTabIndex) {
@@ -91,8 +87,7 @@ fun DeviceListSongsScreen(
                             1 -> BuiltInPlaylist.Offline
                             2 -> BuiltInPlaylist.Downloaded
                             3 -> BuiltInPlaylist.Top
-                            4 -> BuiltInPlaylist.OnDevice
-                            else -> BuiltInPlaylist.Disliked
+                            else -> BuiltInPlaylist.OnDevice
                         }
 
                     if( builtInPlaylist == BuiltInPlaylist.OnDevice )

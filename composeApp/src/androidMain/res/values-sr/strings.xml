@@ -23,7 +23,6 @@
     <string name="enter_the_playlist_name">Унесите име за плејлисту</string>
     <string name="playlists">Плејлисте</string>
     <string name="favorites">Омиљено</string>
-    <string name="disliked">Дислајкови</string>
     <string name="quick_picks">Брзи Одабири</string>
     <string name="songs">Песме</string>
     <string name="other_versions">Друге верзије</string>
@@ -194,7 +193,7 @@
     <string name="mood">Расположење</string>
     <string name="new_albums">Нови албуми</string>
     <string name="moods_and_genres">Расположења и жанрови</string>
-    <string name="search_queries">" упита за претрагу"</string>
+    <string name="search_queries">" упити за претрагу"</string>
     <string name="not_find_battery_optimization_settings">Нисмо успели да пронађемо подешавања за оптимизацију батерије, ручно ставите на белу листу</string>
     <string name="search">Претрага</string>
     <string name="no">Не</string>
@@ -390,7 +389,7 @@
     <string name="export_playlist">Извези плејлисту</string>
     <string name="lang_afrikaans">Афрички</string>
     <string name="playlist_top">Најбоља Плејлиста</string>
-    <string name="my_playlist_top">Мојих Најбољих %s</string>
+    <string name="my_playlist_top">Моја Најбоља %s</string>
     <string name="navigation_bar_position">Положај траке за навигацију</string>
     <string name="direction_left">Лево</string>
     <string name="direction_right">Десно</string>
@@ -548,8 +547,8 @@
     <string name="show_background_in_lyrics">Прикажи боју позадине у Стиховима</string>
     <string name="bg_colors_blurred_cover_background">Замућена позадина омота</string>
     <string name="lang_estonian">Естонски</string>
-    <string name="pcontrols_modern">Модеран</string>
-    <string name="pcontrols_essential">Есенцијални</string>
+    <string name="pcontrols_modern">Модерне</string>
+    <string name="pcontrols_essential">Есенцијалне</string>
     <string name="pcontrols_type">Контроле типа</string>
     <string name="player_swiping_down_is_disabled">Превлачење плејера надоле је онемогућено</string>
     <string name="player_position">Позиција плејера</string>
@@ -557,7 +556,6 @@
     <string name="position_bottom">Дно</string>
     <string name="added_to_favorites">Додато у омиљенo</string>
     <string name="removed_from_favorites">Уклоњено из омиљених</string>
-    <string name="added_to_disliked">Додато у Дислајковане</string>
     <string name="lang_filipino">Филипински</string>
     <string name="action_bar_transparent_background">Прозирна позадина</string>
     <string name="pinfo_type">Врста информације</string>
@@ -581,7 +579,7 @@
     <string name="info_prevent_play_songs_with_age_limitation">Спречите пуштање песама са старосним ограничењем</string>
     <string name="cache_location_private">Приватнa</string>
     <string name="cache_location_system">Систем</string>
-    <string name="info_cannot_rename_a_monthly_or_piped_playlist">Cannot rename a monthly, online, YTM Liked or piped playlist</string>
+    <string name="info_cannot_rename_a_monthly_or_piped_playlist">Није могуће преименовати месечну, онлајн или пипед листу за репродукцију</string>
     <string name="debug">ОТКЛАЊАЊЕ ГРЕШАКА</string>
     <string name="enable_log_debug">Омогући запис отклањања грешака</string>
     <string name="if_enabled_create_a_log_file_to_highlight_errors">Ако је омогућено, креирајте датотеку записа да бисте истакли грешке</string>
@@ -706,7 +704,6 @@
     <string name="info_pauses_player_when_volume_zero">Паузира плејер када јачина звука достигне 0 и наставља када је јачина звука већа од 0</string>
     <string name="quality">Квалитет</string>
     <string name="value_must_be_ip_address">Вредност мора бити ип адреса</string>
-    <string name="value_must_be_hex">Вредност мора бити хексадецимални код</string>
     <string name="swipe_up_to_open_the_queue">Превуци на горе да би отворили Редослед</string>
     <string name="pinfo_show_icons">Прикажи информације са иконама</string>
     <string name="format_ms">%1$s мс</string>
@@ -772,7 +769,7 @@
     <string name="center">Центар</string>
     <string name="lyricsalignment">Поравнање Стихова</string>
     <string name="lang_azerbaijani">Азербејџански</string>
-    <string name="translators">Преводиоца</string>
+    <string name="translators">Преводиоци</string>
     <string name="lang_tamil">Тамилски</string>
     <string name="player_auto_load_songs_in_queue">Аутоматско учитавање песама у редоследу</string>
     <string name="player_auto_load_songs_in_queue_description">Додаје песме када се редослед ускоро завршава</string>
@@ -942,19 +939,11 @@
     <string name="export_log">Извези белешку</string>
     <string name="value_must_be_valid_url">Вредност мора бити важећи урл</string>
     <string name="caching">Кеширање...</string>
-    <string name="lang_basque">Баскијски</string>
-    <string name="custom_dns_is_invalid">Прилагођени ДНС није валидан</string>
-    <string name="custom_dns_over_https_server">Прилагођени днс преко хттпс сервера</string>
-    <string name="info_aternative_dns_server">Ако имате проблема са учитавањем, можете користити алтернативни днс сервер</string>
-    <string name="use_alternative_dns">Користи алтернативни днс</string>
-    <string name="use_dns_over_https_title">Користи днс преко хттпс</string>
-    <string name="also_delete_playback_data">Такође избриши податке о репродукцији</string>
-    <string name="rescue_center">Центар За Спасавање</string>
-    <string name="midnightodyssey">Поноћна Одисеја</string>
-    <string name="circle">Круг</string>
-    <string name="enter_hex">Унесите 7-цифрени ХЕКС код</string>
-    <string name="streaming_player_type_default">Default</string>
-    <string name="streaming_player_type_next">Next</string>
-    <string name="streaming_player_type">Streaming player type</string>
-    <string name="streaming_player_type_advanced">Advanced</string>
+    <string name="lang_basque">Basque</string>
+    <string name="custom_dns_is_invalid">Custom DNS is invalid</string>
+    <string name="custom_dns_over_https_server">Custom dns over https server</string>
+    <string name="info_aternative_dns_server">If you have loading problems, you can use an alternative dns server</string>
+    <string name="use_alternative_dns">Use alternative dns</string>
+    <string name="use_dns_over_https_title">Use dns over https</string>
+    <string name="also_delete_playback_data">Also delete playback data</string>
 </resources>
