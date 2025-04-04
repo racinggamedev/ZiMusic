@@ -1,9 +1,9 @@
 <div align="center">
   <img src="./assets/design/latest/app_logo.svg" width="300" height="100" />    
   <p><b>RiMusic</b> is a <b>multilingual</b> Android application for streaming music from YouTube Music.</p>
-  <p>It began as an <b>extension</b> of <b>ViMusic</b>, then acquired its own identity.</p>
+  <p>It began as an <b>extension</b> of <b>RiMusic</b>,</p>
 <p><b>It allows the user to customize it at will.</b></p>
-<p><b>RiMusic does not collect any data.</b></p>
+<p><b>ViMusic does not collect any data.</b></p>
 
   <a href="https://github.com/fast4x/RiMusic/releases"><img src="https://img.shields.io/github/downloads/fast4x/RiMusic/total?label=Total%20Downloads"></a>
   <a href="https://github.com/fast4x/RiMusic/releases/latest"><img src="https://img.shields.io/github/downloads/fast4x/RiMusic/latest/total?label=Downloads%20of%20latest%20Release"></a>
@@ -467,7 +467,9 @@ WARNING, the custom version is **not** an official release, download only if inv
 
 
 ## 🫂 Acknowledgments
+
 - [**ViMusic**](https://github.com/vfsfitvnm/ViMusic)
+- [**RiMusic**](https://github.com/fast4x/RiMusic)
 - **RiMusic current Logo Design from** [jaimtres](https://github.com/jaimtres)
 - **RiMusic previous Logo, many current icons from** [@ikanakova](https://github.com/ikanakova)
 - **RiMusic Website, other features from** [JZITNIK-github](https://github.com/JZITNIK-github), [martkol](https://github.com/martkol)
